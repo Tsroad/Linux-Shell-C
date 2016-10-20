@@ -31,7 +31,7 @@ int main(void)
 	}
 
 	while (1){ 
-		DEBUG_PRINT ("waiting connection ¡­\n");
+		DEBUG_PRINT ("waiting connection Â¡Â­\n");
 		
 		cfd = accept(lfd, (struct sockaddr *)&cin, &len); 
 		if(cfd == -1){
