@@ -1,0 +1,138 @@
+#!/bin/bash
+
+Tempfile="./temp.txt" 
+Logfile="./log.txt"
+if [ ! -f "$2" ];then
+	mkdir $2
+fi
+if [ -f "$Tempfile" ];then
+	rm "$Tempfile"
+fi
+if [ -f "$Logfile" ];then
+	rm "$Logfile"
+fi
+
+sudo chmod 755 $1 $2
+cd $1
+make  >> ../log.txt
+make  clean >> ../log.txt
+cd ../
+while [ $? -eq 1 ]
+do
+#	mkdir -p $line	
+#	rm -rf $line
+#	mv ${args} ./fo
+ 	#echo $line
+         echo "..."
+done
+sed -i -e '/usr/d' temp.txt
+sed -i -e '/:/d' temp.txt
+sed -i -e '/^[.]/d' temp.txt
+find $1 -name 'Makefile' >>temp.txt
+#cat temp.txt | sort | uniq 
+#awk '!a[$0]++' temp.txt 2> temp2.txt 
+
+#define rules 
+#if this line is /*;then
+#	if Next line is ~/;
+#		mv this line
+#	else ;
+#else 	
+#	mv this line
+a=$(echo $(pwd)|wc -L)+$(echo $1|wc -L)-1;
+numFlag=2
+cat temp.txt | while read line
+do
+	if [[ $(echo ${line:0:1}) = '/' ]]; then
+		line2=$(cat -n temp.txt | tail -n +$numFlag | head -n 1)
+		#echo ${line2}
+		if [[ $(echo ${line2}) =~ ' /'  ]];then
+			echo ""
+		else
+			if [ ! -f "$2$(echo ${line:$a})" ];then
+				mkdir -p $2$(echo ${line:$a})  			
+				rmdir $2$(echo ${line:$a})
+			fi
+			if [ -f "$1$(echo ${line:$a})" ]; then
+				mv $1$(echo ${line:$a}) $2$(echo ${line:$a})
+			fi
+		fi
+	elif [[ $(echo ${line:0:2}) = './' ]]; then
+		if [ ! -f "$2$(echo ${line:$(echo $1|wc -L)})" ];then
+			mkdir -p $2$(echo ${line:$(echo $1|wc -L)})			
+			rmdir $2$(echo ${line:$(echo $1|wc -L)})
+		fi
+		mv $1$(echo ${line:$(echo $1|wc -L)}) $2$(echo ${line:$(echo $1|wc -L)})
+	else
+		if [ ! -f "$2$line" ];then
+			mkdir -p $2$line			
+			rmdir $2$line
+		fi
+		if [ -f "$1$line" ]; then
+ 			 mv $1$line $2$line
+		fi	
+	fi
+	((numFlag++))
+done
+sed -i 's/.h/.c/g' temp.txt
+numFlag=2
+cat temp.txt | while read line
+do
+	if [[ $(echo ${line:0:1}) = '/' ]]; then
+		line2=$(cat -n temp.txt | tail -n +$numFlag | head -n 1)
+		if [[ $(echo ${line2:0:1}) = '/'  ]];then
+			echo $line2
+		else
+			if [  -f "$1$line" ]; then
+	 			echo "" # mv $1$(echo ${line:$a}) $2$(echo ${line:$a})
+			fi				
+		fi
+	elif [[ $(echo ${line:0:2}) = './' ]]; then
+		echo ""
+	else
+		if [ -f "$1$line" ]; then
+	 		mv $1$line $2$line
+		fi	
+	fi	
+	((numFlag++))
+done
+
+swapname1=$1
+swapname2=$2
+mv $1 c.road
+mv $2 $swapname1
+mv c.road $swapname2
+echo Done!
+rm temp.txt
+
+if [ !1 ];then
+get_fullpath()
+{
+
+#判断是否有参数,比如当前路径为/home/user1/workspace   参数为 ./../dir/hello.c
+    if [ -z $1 ]
+    then
+        return 1
+    fi
+    relative_path=$1
+
+#取前面一部分目录,比如  ./../../ ,  ../../ 等, 在这里调用cd命令来获取这部分路径的绝对路径,因为按这样写的,在当前路径的上级目录肯定是存在的.
+
+#tmp_path1为 ./..
+
+#tmp_fullpath1 /home/user1
+
+    tmp_path1=$(echo $relative_path | sed -e "s=/[^\.]*$==")
+    tmp_fullpath1=$(cd $tmp_path1 ;  pwd)
+
+#获取后面一部分路径
+
+#tmp_path2为dir/hello.c
+
+   tmp_path2=$(echo $relative_path | sed -e "s=\.[\./]*[/|$]==")
+
+#拼凑路径返回
+    echo ${tmp_fullpath1}/${tmp_path2}
+    return 0
+}
+fi

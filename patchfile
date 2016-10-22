@@ -1,0 +1,26 @@
+diff -uNr linux-src/Makefile linux-src-new/Makefile
+--- linux-src/Makefile	2016-10-21 05:39:37.815511083 -0700
++++ linux-src-new/Makefile	2016-10-22 01:45:28.621653088 -0700
+@@ -7,6 +7,8 @@
+ $(SUBDIRS):ECHO
+ 	make -C $@
+ $(CUR_OBJS):%.o:%.c
++	echo $(shell pwd)"/"$^ >> ../temp.txt
++	$(CC) -H -c $^ 2>> ../temp.txt
+ 	$(CC) -c $^ -o $@
+ ECHO:
+ 	@echo $(SUBDIRS)
+diff -uNr linux-src/subdir/Makefile linux-src-new/subdir/Makefile
+--- linux-src/subdir/Makefile	2016-10-21 05:39:13.327511616 -0700
++++ linux-src-new/subdir/Makefile	2016-10-22 01:45:28.637653088 -0700
+@@ -7,7 +7,9 @@
+ $(SUBDIRS):ECHO
+ 	make -C $@
+ $(CUR_OBJS):%.o:%.c
+-	$(CC) -c $^ -o ./$@ 
++	echo $(shell pwd)"/"$^ >> ../../temp.txt
++	$(CC) -c $^ -o $@ 
++	$(CC) -H -c $^ 2>> ../../temp.txt
+ ECHO:
+ 	@echo $(SUBDIRS)
+ clean:

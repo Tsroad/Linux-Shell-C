@@ -1,0 +1,19 @@
+subdir
+make -C subdir
+make[1]: Entering directory `/home/tsroad/Desktop/linux-src/subdir'
+echo /home/tsroad/Desktop/linux-src/subdir"/"iolib.c >> ../../temp.txt
+cc -c iolib.c -o iolib.o 
+cc -H -c iolib.c 2>> ../../temp.txt
+make[1]: Leaving directory `/home/tsroad/Desktop/linux-src/subdir'
+echo /home/tsroad/Desktop/linux-src"/"iolib.c >> ../temp.txt
+cc -H -c iolib.c 2>> ../temp.txt
+cc -c iolib.c -o iolib.o
+echo /home/tsroad/Desktop/linux-src"/"main.c >> ../temp.txt
+cc -H -c main.c 2>> ../temp.txt
+cc -c main.c -o main.o
+echo /home/tsroad/Desktop/linux-src"/"web_server.c >> ../temp.txt
+cc -H -c web_server.c 2>> ../temp.txt
+cc -c web_server.c -o web_server.o
+make -C subdir clean	
+make[1]: Entering directory `/home/tsroad/Desktop/linux-src/subdir'
+make[1]: Leaving directory `/home/tsroad/Desktop/linux-src/subdir'
