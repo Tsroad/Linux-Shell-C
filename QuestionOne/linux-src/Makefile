@@ -9,11 +9,8 @@ $(SUBDIRS):ECHO
 $(CUR_OBJS):%.o:%.c
 	$(CC) -c $^ -o $@
 ECHO:
-	@echo $(SUBDIRS)
-	
+	@echo $(SUBDIRS)	
 clean:
 	@rm *.o
 	make -C $(SUBDIRS) clean	
-
-
 
