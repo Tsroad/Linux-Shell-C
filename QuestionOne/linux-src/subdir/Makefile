@@ -12,4 +12,3 @@ ECHO:
 	@echo $(SUBDIRS)
 clean:
 	@rm *.o
-
