@@ -19,10 +19,8 @@ ssize_t my_read(int fd, void *buf, size_t length)
 		else
 			break;
 	} 
-
 	return done; 
 }
-
 ssize_t my_write(int fd, void *buf, size_t length) 
 { 
 	ssize_t done = length;
@@ -40,6 +38,5 @@ ssize_t my_write(int fd, void *buf, size_t length)
 		else
 			break;
 	} 
-
 	return done;
 }
