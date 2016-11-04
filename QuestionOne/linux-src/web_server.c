@@ -44,8 +44,7 @@ int configuration(int *port, char *path)
               printf("error in config.ini\n");
 			return -1;  
 	  	}
-     }
-     
+     }     
 	return 0;
 }
 
@@ -67,7 +66,6 @@ int get_path(int cfd, char * path)
        		strtok(&buf[4], " ");
 	    	strcat(path, &buf[4]);
 	}
-
 	return 0;
 }
 
@@ -124,6 +122,5 @@ int write_page(int cfd, char * path)
 	while ((n = read(cfd, buf, MAX_LINE)) > 0)
 		if(my_write(cfd, buf, n) == -1)
 			return -1;
-
 	return 0;
 }
