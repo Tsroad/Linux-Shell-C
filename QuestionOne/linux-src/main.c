@@ -10,19 +10,16 @@ int main(void)
 	int port;
 	char path[MAX_LINE]; 
 	struct stat statbuf; 
-
     	signal(SIGCHLD, SIG_IGN); 
 	signal(SIGPIPE, SIG_IGN); 
-     
 	printf("initializing ...\n");
-	
 	if(configuration(&port, path) == -1){
 		DEBUG_PRINT("error during initializing\n");
 		exit(1);
 	}
 
 	while (1){ 
-		DEBUG_PRINT ("waiting connection ¡­\n");
+		DEBUG_PRINT ("waiting connection Â¡Â­\n");
 		
 		cfd = accept(lfd, (struct sockaddr *)&cin, &len); 
 		if(cfd == -1){
@@ -54,10 +51,8 @@ int main(void)
 					close(cfd);
 					
 					exit(1); 
-				}
-				
-				close(cfd); 
-				
+				}				
+				close(cfd); 				
 				exit(0); 
 			}
 
@@ -85,15 +80,12 @@ int main(void)
 			if(write_page(cfd, path) == -1){
 				DEBUG_PRINT ("error during writing page\n");
 				exit(1);
-			}
-		
+			}		
 			close(fd);
 			close(cfd);
-			
 			exit(0);
 		}else 
 			close(cfd);
 	}
-
 	return 0;
 }
