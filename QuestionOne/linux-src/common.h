@@ -10,7 +10,6 @@
 #include "subdir/iolib.h"
 
 #define MAX_LINE 1024 
-
 #define BUG 1
 #ifdef BUG
 #define DEBUG_PRINT(str); 	printf(str);
