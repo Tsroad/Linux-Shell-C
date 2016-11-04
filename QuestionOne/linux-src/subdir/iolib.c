@@ -1,11 +1,9 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
-
 ssize_t my_read(int fd, void *buf, size_t length) 
 { 
 	ssize_t done = length; 
-
 	while(done > 0) { 
 		done = read(fd, buf, length); 
 		
@@ -19,7 +17,6 @@ ssize_t my_read(int fd, void *buf, size_t length)
 		else
 			break;
 	} 
-
 	return done; 
 }
 
@@ -40,6 +37,5 @@ ssize_t my_write(int fd, void *buf, size_t length)
 		else
 			break;
 	} 
-
 	return done;
 }
