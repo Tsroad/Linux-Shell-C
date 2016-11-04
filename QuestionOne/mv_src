@@ -39,6 +39,7 @@ find $1 -name 'Makefile' >>temp.txt
 #	else ;
 #else 	
 #	mv this line
+
 a=$(echo $(pwd)|wc -L)+$(echo $1|wc -L)-1;
 numFlag=2
 cat temp.txt | while read line
@@ -74,6 +75,7 @@ do
 	fi
 	((numFlag++))
 done
+
 sed -i 's/.h/.c/g' temp.txt
 numFlag=2
 cat temp.txt | while read line
